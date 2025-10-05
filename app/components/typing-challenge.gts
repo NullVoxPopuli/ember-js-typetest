@@ -24,6 +24,79 @@ export default class TypingChallengeComponent extends Component {
   @tracked currentCharIndex = 0;
   @tracked stats: TypingStats | null = null;
 
+  constructor(owner: unknown, args: object) {
+    super(owner, args);
+    this.setupEventListeners();
+  }
+
+  willDestroy() {
+    super.willDestroy();
+    this.removeEventListeners();
+  }
+
+  setupEventListeners(): void {
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+  }
+
+  removeEventListeners(): void {
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+  }
+
+  handleDocumentKeyDown = (event: KeyboardEvent): void => {
+    // Skip if test is completed
+    if (this.isCompleted) return;
+
+    // Skip if focusing on an input element
+    const target = event.target as HTMLElement;
+
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
+
+    // Prevent certain actions that could break the test
+    if (event.ctrlKey || event.metaKey) {
+      if (['a', 'c', 'v', 'x', 'z', 'y'].includes(event.key.toLowerCase())) {
+        event.preventDefault();
+      }
+
+      return;
+    }
+
+    // Handle backspace
+    if (event.key === 'Backspace') {
+      event.preventDefault();
+
+      if (this.userInput.length > 0) {
+        this.userInput = this.userInput.slice(0, -1);
+        this.currentCharIndex = this.userInput.length;
+      }
+
+      return;
+    }
+
+    // Handle printable characters
+    if (event.key.length === 1) {
+      event.preventDefault();
+
+      // Don't allow input beyond target length
+      if (this.userInput.length >= this.targetCode.length) {
+        return;
+      }
+
+      // Start the timer on first character
+      if (!this.isActive && this.userInput.length === 0) {
+        this.isActive = true;
+        this.startTime = Date.now();
+      }
+
+      this.userInput = this.userInput + event.key;
+      this.currentCharIndex = this.userInput.length;
+
+      // Check if test is complete
+      if (this.isTestComplete) {
+        this.completeTest();
+      }
+    }
+  };
+
   get targetCode(): string {
     return this.currentSnippet.code;
   }
@@ -49,40 +122,7 @@ export default class TypingChallengeComponent extends Component {
     return this.userInput.length === this.targetCode.length;
   }
 
-  @action
-  handleInput(event: Event): void {
-    const input = event.target as HTMLTextAreaElement;
-    const value = input.value;
 
-    // Don't allow input beyond target length
-    if (value.length > this.targetCode.length) {
-      return;
-    }
-
-    // Start the timer on first character
-    if (!this.isActive && value.length > 0) {
-      this.isActive = true;
-      this.startTime = Date.now();
-    }
-
-    this.userInput = value;
-    this.currentCharIndex = value.length;
-
-    // Check if test is complete
-    if (this.isTestComplete) {
-      this.completeTest();
-    }
-  }
-
-  @action
-  handleKeyDown(event: KeyboardEvent): void {
-    // Prevent certain actions that could break the test
-    if (event.ctrlKey || event.metaKey) {
-      if (['a', 'c', 'v', 'x', 'z', 'y'].includes(event.key.toLowerCase())) {
-        event.preventDefault();
-      }
-    }
-  }
 
   @action
   completeTest(): void {
@@ -163,21 +203,12 @@ export default class TypingChallengeComponent extends Component {
           </div>
         </div>
 
-        <div class="input-section">
-          <label for="typing-input" class="sr-only">Type the code here</label>
-          <textarea
-            id="typing-input"
-            class="typing-input"
-            value={{this.userInput}}
-            placeholder="Start typing to begin the challenge..."
-            spellcheck="false"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            {{on "input" this.handleInput}}
-            {{on "keydown" this.handleKeyDown}}
-          ></textarea>
-        </div>
+        {{#unless this.isActive}}
+          <div class="typing-hint">
+            <p class="hint-text">✨ Start typing anywhere to begin the challenge! ✨</p>
+            <p class="hint-subtext">No need to click or focus - just start typing</p>
+          </div>
+        {{/unless}}
 
         {{#if this.isActive}}
           <div class="status-bar">

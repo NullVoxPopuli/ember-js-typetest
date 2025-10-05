@@ -229,39 +229,48 @@ body {
   opacity: 0.6;
 }
 
-/* Input Section */
-.input-section {
-  margin-bottom: 2rem;
-  position: relative;
+/* Typing Hint */
+.typing-hint {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  border: 2px solid var(--neon-cyan);
+  border-radius: 20px;
+  box-shadow: var(--glow-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  animation: hint-glow 3s ease-in-out infinite alternate;
 }
 
-.typing-input {
-  width: 100%;
-  min-height: 150px;
-  padding: 1.5rem;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 1.4rem;
-  line-height: 1.6;
-  background: var(--bg-tertiary);
-  border: 2px solid var(--neon-purple);
-  border-radius: 15px;
-  color: var(--text-primary);
-  resize: vertical;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: var(--glow-purple), inset 0 0 20px rgba(128, 0, 255, 0.1);
+@keyframes hint-glow {
+  from {
+    border-color: var(--neon-cyan);
+    box-shadow: var(--glow-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  to {
+    border-color: var(--neon-pink);
+    box-shadow: var(--glow-pink), inset 0 0 30px rgba(255, 0, 128, 0.2);
+  }
 }
 
-.typing-input:focus {
-  border-color: var(--neon-pink);
-  box-shadow: var(--glow-pink), inset 0 0 30px rgba(255, 0, 128, 0.2);
-  transform: scale(1.01);
+.hint-text {
+  font-size: 1.5rem;
+  color: var(--neon-cyan);
+  text-shadow: var(--text-glow-cyan);
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  animation: text-pulse 2s ease-in-out infinite alternate;
 }
 
-.typing-input::placeholder {
+@keyframes text-pulse {
+  from { text-shadow: var(--text-glow-cyan); }
+  to { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
+}
+
+.hint-subtext {
+  font-size: 1rem;
   color: var(--text-secondary);
-  opacity: 0.7;
-  font-style: italic;
+  margin: 0;
+  opacity: 0.8;
 }
 
 /* Status Bar */
