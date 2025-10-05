@@ -1,1 +1,493 @@
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+/* Synthwave Typing Test - Retro Futuristic Design */
+
+/* Import Google Fonts for retro aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+:root {
+  /* Synthwave Color Palette */
+  --neon-pink: #ff0080;
+  --neon-cyan: #00ffff;
+  --neon-purple: #8000ff;
+  --neon-green: #00ff80;
+  --neon-orange: #ff8000;
+  --electric-blue: #0080ff;
+
+  /* Background Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a0f1a;
+  --bg-tertiary: #2a1a2a;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-glow: #ff0080;
+
+  /* Gradient Backgrounds */
+  --gradient-primary: linear-gradient(135deg, #ff0080 0%, #8000ff 50%, #0080ff 100%);
+  --gradient-secondary: linear-gradient(45deg, #00ffff 0%, #ff0080 100%);
+  --gradient-dark: linear-gradient(180deg, #1a0f1a 0%, #0a0a0a 100%);
+
+  /* Shadows and Glows */
+  --glow-pink: 0 0 10px #ff0080, 0 0 20px #ff0080, 0 0 30px #ff0080;
+  --glow-cyan: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  --glow-purple: 0 0 10px #8000ff, 0 0 20px #8000ff, 0 0 30px #8000ff;
+  --text-glow-pink: 0 0 5px #ff0080, 0 0 10px #ff0080;
+  --text-glow-cyan: 0 0 5px #00ffff, 0 0 10px #00ffff;
+
+  /* Grid pattern for retro effect */
+  --grid-pattern:
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', monospace;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  /* Animated grid background */
+  background-image: var(--grid-pattern);
+  background-size: 50px 50px;
+  background-position: 0 0, 0 0;
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 50px 50px, 50px 50px; }
+}
+
+/* Screen-reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Main typing challenge container */
+.typing-challenge {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header Styles */
+.challenge-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.challenge-title {
+  font-size: 4rem;
+  font-weight: 900;
+  font-family: 'Orbitron', monospace;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: var(--text-glow-pink);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: title-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes title-pulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.2); }
+}
+
+.challenge-description {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin: 0;
+  text-shadow: var(--text-glow-cyan);
+  opacity: 0.8;
+}
+
+/* Code Display Section */
+.code-display {
+  background: var(--bg-secondary);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--glow-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.code-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: scan-line 3s infinite;
+}
+
+@keyframes scan-line {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.snippet-info {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.snippet-label {
+  display: inline-block;
+  background: var(--gradient-secondary);
+  color: var(--bg-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--glow-pink);
+}
+
+.code-text {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.8rem;
+  line-height: 1.6;
+  text-align: left;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 0, 128, 0.3);
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+/* Character styling for typing feedback */
+.char {
+  position: relative;
+  transition: all 0.1s ease;
+  flex: 0 0 auto;
+  white-space: pre;
+  min-width: 0;
+}
+
+.char--correct {
+  color: var(--neon-green);
+  text-shadow: var(--text-glow-cyan);
+  background: rgba(0, 255, 128, 0.1);
+}
+
+.char--incorrect {
+  color: var(--neon-orange);
+  background: rgba(255, 128, 0, 0.2);
+  text-shadow: 0 0 5px #ff8000;
+  animation: error-shake 0.3s ease-in-out;
+}
+
+@keyframes error-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+.char--current {
+  background: var(--neon-cyan);
+  color: var(--bg-primary);
+  animation: cursor-blink 1s infinite;
+  box-shadow: var(--glow-cyan);
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+.char--pending {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* Input Section */
+.input-section {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.typing-input {
+  width: 100%;
+  min-height: 150px;
+  padding: 1.5rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--neon-purple);
+  border-radius: 15px;
+  color: var(--text-primary);
+  resize: vertical;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-purple), inset 0 0 20px rgba(128, 0, 255, 0.1);
+}
+
+.typing-input:focus {
+  border-color: var(--neon-pink);
+  box-shadow: var(--glow-pink), inset 0 0 30px rgba(255, 0, 128, 0.2);
+  transform: scale(1.01);
+}
+
+.typing-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Status Bar */
+.status-bar {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.progress-indicator {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--electric-blue);
+  border-radius: 25px;
+  color: var(--electric-blue);
+  font-weight: 700;
+  text-shadow: var(--text-glow-cyan);
+  box-shadow: 0 0 15px rgba(0, 128, 255, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+  from { box-shadow: 0 0 15px rgba(0, 128, 255, 0.3); }
+  to { box-shadow: 0 0 25px rgba(0, 128, 255, 0.6); }
+}
+
+/* Results Screen */
+.results-screen {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--bg-secondary);
+  border: 3px solid var(--neon-pink);
+  border-radius: 20px;
+  box-shadow: var(--glow-pink), inset 0 0 30px rgba(255, 0, 128, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.results-screen::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, var(--neon-pink), transparent);
+  animation: rotate-border 4s linear infinite;
+  z-index: -1;
+  opacity: 0.3;
+}
+
+@keyframes rotate-border {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.results-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  margin: 0 0 2rem 0;
+  text-shadow: var(--text-glow-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: result-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes result-glow {
+  from { text-shadow: var(--text-glow-cyan); }
+  to { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0 3rem 0;
+}
+
+.stat-item {
+  background: var(--bg-tertiary);
+  border: 2px solid var(--electric-blue);
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: stat-shine 2s infinite;
+  animation-delay: calc(var(--delay, 0) * 0.5s);
+}
+
+@keyframes stat-shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 128, 255, 0.4);
+}
+
+.stat-item--primary {
+  border-color: var(--neon-pink);
+  background: linear-gradient(135deg, var(--bg-tertiary), rgba(255, 0, 128, 0.1));
+}
+
+.stat-item--primary .stat-value {
+  color: var(--neon-pink);
+  text-shadow: var(--text-glow-pink);
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--electric-blue);
+  text-shadow: var(--text-glow-cyan);
+  margin: 0;
+  display: block;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+/* Restart Button */
+.restart-btn {
+  background: var(--gradient-primary);
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 30px;
+  color: var(--bg-primary);
+  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-pink);
+  position: relative;
+  overflow: hidden;
+}
+
+.restart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.restart-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080;
+  filter: brightness(1.1);
+}
+
+.restart-btn:hover::before {
+  left: 100%;
+}
+
+.restart-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .typing-challenge {
+    padding: 1rem;
+  }
+
+  .challenge-title {
+    font-size: 2.5rem;
+  }
+
+  .code-text {
+    font-size: 1.2rem;
+  }
+
+  .typing-input {
+    font-size: 1.1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+
+  .results-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .challenge-title {
+    font-size: 2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .code-text {
+    font-size: 1rem;
+  }
+}

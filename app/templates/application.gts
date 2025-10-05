@@ -1,8 +1,10 @@
 import { pageTitle } from 'ember-page-title';
 
-<template>
-  {{pageTitle "VibeMonkeytype"}}
+import TypingChallenge from '../components/typing-challenge.gts';
 
-  hi
+<template>
+  {{pageTitle "Synthwave Typing Challenge"}}
+
+  <TypingChallenge />
   {{outlet}}
 </template>
