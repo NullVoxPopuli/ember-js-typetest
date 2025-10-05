@@ -4,8 +4,8 @@ import { on } from '@ember/modifier';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
-import { type CodeSnippet } from '../data/code-snippets.ts';
-
+import type { CodeSnippet } from '../data/code-snippets.ts';
+import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
 
 interface TypingStats {
@@ -17,15 +17,17 @@ interface TypingStats {
   errors: number;
 }
 
-interface TypingChallengeArgs {
-  snippet: CodeSnippet;
+interface Signature {
+  Args: {
+    snippet: CodeSnippet;
+  };
 }
 
 function isNewline(char: string) {
   return char === '\n';
 }
 
-export default class TypingChallengeComponent extends Component<TypingChallengeArgs> {
+export default class TypingChallengeComponent extends Component<Signature> {
   @service declare router: RouterService;
 
   @tracked userInput = '';
@@ -40,7 +42,7 @@ export default class TypingChallengeComponent extends Component<TypingChallengeA
     return this.args.snippet;
   }
 
-  constructor(owner: unknown, args: object) {
+  constructor(owner: Owner, args: { snippet: CodeSnippet }) {
     super(owner, args);
     this.setupEventListeners();
   }

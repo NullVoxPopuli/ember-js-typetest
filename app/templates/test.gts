@@ -2,6 +2,9 @@ import { pageTitle } from 'ember-page-title';
 
 import TypingChallenge from '../components/typing-challenge.gts';
 
+import type { CodeSnippet } from '../data/code-snippets.ts';
+import type { TOC } from '@ember/component/template-only';
+
 <template>
   {{pageTitle @model.id}}
 
@@ -13,4 +16,8 @@ import TypingChallenge from '../components/typing-challenge.gts';
   {{#each (Array @model) as |hack|}}
     <TypingChallenge @snippet={{hack}} />
   {{/each}}
-</template>
+</template> satisfies TOC<{
+  Args: {
+    model: CodeSnippet;
+  };
+}>;
