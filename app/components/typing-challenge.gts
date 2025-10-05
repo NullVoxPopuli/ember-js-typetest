@@ -88,6 +88,32 @@ export default class TypingChallengeComponent extends Component<TypingChallengeA
       return;
     }
 
+    // Handle Enter key as newline
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      // Don't allow input beyond target length
+      if (this.userInput.length >= this.targetCode.length) {
+        return;
+      }
+
+      // Start the timer on first character
+      if (!this.isActive && this.userInput.length === 0) {
+        this.isActive = true;
+        this.startTime = Date.now();
+      }
+
+      this.userInput = this.userInput + '\n';
+      this.currentCharIndex = this.userInput.length;
+
+      // Check if test is complete
+      if (this.isTestComplete) {
+        this.completeTest();
+      }
+
+      return;
+    }
+
     // Handle printable characters
     if (event.key.length === 1) {
       event.preventDefault();
