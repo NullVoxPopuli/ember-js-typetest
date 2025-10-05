@@ -1,5 +1,6 @@
 import EmberRouter from '@embroider/router';
-import config from 'vibe-monkeytype/config/environment';
+
+import config from '#config';
 
 export default class Router extends EmberRouter {
   location = config.locationType;

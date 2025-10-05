@@ -1,18 +1,10 @@
-import Application from '@ember/application';
-import compatModules from '@embroider/virtual/compat-modules';
-import Resolver from 'ember-resolver';
-import loadInitializers from 'ember-load-initializers';
-import config from 'vibe-monkeytype/config/environment';
-import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
-
-if (macroCondition(isDevelopingApp())) {
-  importSync('./deprecation-workflow');
-}
+import PageTitleService from 'ember-page-title/services/page-title';
+import Application from 'ember-strict-application-resolver';
 
 export default class App extends Application {
-  modulePrefix = config.modulePrefix;
-  podModulePrefix = config.podModulePrefix;
-  Resolver = Resolver.withModules(compatModules);
+  modules = {
+    ...import.meta.glob('./routes/**/*', { eager: true }),
+    ...import.meta.glob('./templates/**/*', { eager: true }),
+    './services/page-title': PageTitleService,
+  };
 }
-
-loadInitializers(App, config.modulePrefix, compatModules);
