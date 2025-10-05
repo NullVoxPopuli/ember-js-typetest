@@ -1,8 +1,10 @@
 # Vibe coded JS type test
 
-Agent: Claude Sonnet 4
-Editor: VSCode
-One shot: no
+https://nullvoxpopuli.github.io/ember-js-typetest/
+
+- Agent: Claude Sonnet 4
+- Editor: VSCode
+- One shot: no
 
 <details><summay>initial transcript</summary>
 
