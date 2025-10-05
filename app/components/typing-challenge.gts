@@ -240,10 +240,14 @@ export default class TypingChallengeComponent extends Component<TypingChallengeA
 
           <div class="code-text">
             {{#each this.displayChars as |charObj|}}
-                {{#if (isNewline charObj.char)}}
-                <span class="char char--{{charObj.status}} char--newline">{{charObj.char}}</span>
+              {{#if (isNewline charObj.char)}}
+                <span
+                  class="char char--{{charObj.status}} char--newline"
+                >{{charObj.char}}</span>
               {{else}}
-                <span class="char char--{{charObj.status}}">{{charObj.char}}</span>
+                <span
+                  class="char char--{{charObj.status}}"
+                >{{charObj.char}}</span>
               {{/if}}
             {{/each}}
           </div>

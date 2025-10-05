@@ -12,4 +12,5 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   this.route('test', { path: '/test/:snippet_id' });
+  this.route('not-found', { path: '/*path' });
 });
