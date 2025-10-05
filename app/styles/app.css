@@ -29,7 +29,12 @@
   --text-glow: #ff3399;
 
   /* Gradient Backgrounds */
-  --gradient-primary: linear-gradient(135deg, #ff3399 0%, #9933ff 50%, #3399ff 100%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    #ff3399 0%,
+    #9933ff 50%,
+    #3399ff 100%
+  );
   --gradient-secondary: linear-gradient(45deg, #33ffff 0%, #ff3399 100%);
   --gradient-dark: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
 
@@ -41,7 +46,7 @@
   --glow-cyan: 0 0 15px rgba(51, 255, 255, 0.6);
   --glow-purple: 0 0 15px rgba(153, 51, 255, 0.6);
   --text-glow-pink: 0 0 3px rgba(255, 51, 153, 0.8);
-  --text-glow-cyan: 0 0 3px rgba(51, 255, 255, 0.8);  /* Grid pattern for retro effect */
+  --text-glow-cyan: 0 0 3px rgba(51, 255, 255, 0.8); /* Grid pattern for retro effect */
   --grid-pattern:
     linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
@@ -63,13 +68,23 @@ body {
   /* Animated grid background */
   background-image: var(--grid-pattern);
   background-size: 50px 50px;
-  background-position: 0 0, 0 0;
+  background-position:
+    0 0,
+    0 0;
   animation: grid-move 20s linear infinite;
 }
 
 @keyframes grid-move {
-  0% { background-position: 0 0, 0 0; }
-  100% { background-position: 50px 50px, 50px 50px; }
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      50px 50px,
+      50px 50px;
+  }
 }
 
 /* Screen-reader only content */
@@ -117,8 +132,12 @@ body {
 }
 
 @keyframes title-pulse-subtle {
-  from { filter: contrast(1.1) brightness(1); }
-  to { filter: contrast(1.1) brightness(1.1); }
+  from {
+    filter: contrast(1.1) brightness(1);
+  }
+  to {
+    filter: contrast(1.1) brightness(1.1);
+  }
 }
 
 /* Respect user's motion preferences */
@@ -145,7 +164,9 @@ body {
   border-radius: 15px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: var(--glow-cyan), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow:
+    var(--glow-cyan),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -157,13 +178,22 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   animation: scan-line 3s infinite;
 }
 
 @keyframes scan-line {
-  0% { left: -100%; }
-  100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 .snippet-info {
@@ -232,8 +262,13 @@ body {
 }
 
 @keyframes error-pulse {
-  0%, 100% { background: rgba(255, 153, 51, 0.25); }
-  50% { background: rgba(255, 153, 51, 0.4); }
+  0%,
+  100% {
+    background: rgba(255, 153, 51, 0.25);
+  }
+  50% {
+    background: rgba(255, 153, 51, 0.4);
+  }
 }
 
 /* Respect user's motion preferences */
@@ -254,8 +289,13 @@ body {
 }
 
 @keyframes cursor-glow {
-  0%, 100% { background: var(--neon-cyan-bright); }
-  50% { background: var(--neon-cyan); }
+  0%,
+  100% {
+    background: var(--neon-cyan-bright);
+  }
+  50% {
+    background: var(--neon-cyan);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -288,8 +328,13 @@ body {
 }
 
 @keyframes hint-border-cycle {
-  0%, 100% { border-color: var(--neon-cyan-bright); }
-  50% { border-color: var(--neon-pink-bright); }
+  0%,
+  100% {
+    border-color: var(--neon-cyan-bright);
+  }
+  50% {
+    border-color: var(--neon-pink-bright);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -322,7 +367,7 @@ body {
   margin: 0;
   /* Better contrast */
   font-weight: 500;
-}/* Status Bar */
+} /* Status Bar */
 .status-bar {
   text-align: center;
   margin-bottom: 2rem;
@@ -342,8 +387,12 @@ body {
 }
 
 @keyframes pulse-glow {
-  from { box-shadow: 0 0 15px rgba(0, 128, 255, 0.3); }
-  to { box-shadow: 0 0 25px rgba(0, 128, 255, 0.6); }
+  from {
+    box-shadow: 0 0 15px rgba(0, 128, 255, 0.3);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(0, 128, 255, 0.6);
+  }
 }
 
 /* Results Screen - Enhanced Accessibility */
@@ -367,15 +416,24 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(from 0deg, transparent, var(--neon-pink-bright), transparent);
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    var(--neon-pink-bright),
+    transparent
+  );
   animation: rotate-border 6s linear infinite;
   z-index: -1;
   opacity: 0.2;
 }
 
 @keyframes rotate-border {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -435,14 +493,23 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
   animation: stat-shine 3s infinite;
   animation-delay: calc(var(--delay, 0) * 0.8s);
 }
 
 @keyframes stat-shine {
-  0% { left: -100%; }
-  100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -452,7 +519,8 @@ body {
   }
 }
 
-.stat-item:hover, .stat-item:focus-within {
+.stat-item:hover,
+.stat-item:focus-within {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 128, 255, 0.5);
   border-color: var(--neon-cyan-bright);
@@ -460,7 +528,11 @@ body {
 
 .stat-item--primary {
   border-color: var(--neon-pink-bright);
-  background: linear-gradient(135deg, var(--bg-tertiary), rgba(255, 0, 128, 0.2));
+  background: linear-gradient(
+    135deg,
+    var(--bg-tertiary),
+    rgba(255, 0, 128, 0.2)
+  );
 }
 
 .stat-item--primary .stat-value {
@@ -536,13 +608,21 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.4s ease;
 }
 
-.restart-btn:hover, .restart-btn:focus {
+.restart-btn:hover,
+.restart-btn:focus {
   transform: translateY(-2px);
-  box-shadow: var(--glow-pink), 0 8px 20px rgba(255, 0, 128, 0.4);
+  box-shadow:
+    var(--glow-pink),
+    0 8px 20px rgba(255, 0, 128, 0.4);
   filter: brightness(1.15);
   /* High contrast focus indicator */
   outline: 3px solid var(--neon-cyan-bright);

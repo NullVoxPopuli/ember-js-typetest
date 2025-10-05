@@ -2,8 +2,11 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
 
-import { type CodeSnippet,getRandomSnippet } from '../data/code-snippets.ts';
+import { type CodeSnippet } from '../data/code-snippets.ts';
+
+import type RouterService from '@ember/routing/router-service';
 
 interface TypingStats {
   wpm: number;
@@ -14,8 +17,13 @@ interface TypingStats {
   errors: number;
 }
 
-export default class TypingChallengeComponent extends Component {
-  @tracked currentSnippet: CodeSnippet = getRandomSnippet();
+interface TypingChallengeArgs {
+  snippet: CodeSnippet;
+}
+
+export default class TypingChallengeComponent extends Component<TypingChallengeArgs> {
+  @service declare router: RouterService;
+
   @tracked userInput = '';
   @tracked isActive = false;
   @tracked isCompleted = false;
@@ -23,6 +31,10 @@ export default class TypingChallengeComponent extends Component {
   @tracked endTime: number | null = null;
   @tracked currentCharIndex = 0;
   @tracked stats: TypingStats | null = null;
+
+  get currentSnippet(): CodeSnippet {
+    return this.args.snippet;
+  }
 
   constructor(owner: unknown, args: object) {
     super(owner, args);
@@ -101,7 +113,10 @@ export default class TypingChallengeComponent extends Component {
     return this.currentSnippet.code;
   }
 
-  get displayChars(): Array<{ char: string; status: 'correct' | 'incorrect' | 'current' | 'pending' }> {
+  get displayChars(): Array<{
+    char: string;
+    status: 'correct' | 'incorrect' | 'current' | 'pending';
+  }> {
     const targetChars = this.targetCode.split('');
     const inputChars = this.userInput.split('');
 
@@ -121,8 +136,6 @@ export default class TypingChallengeComponent extends Component {
   get isTestComplete(): boolean {
     return this.userInput.length === this.targetCode.length;
   }
-
-
 
   @action
   completeTest(): void {
@@ -155,11 +168,13 @@ export default class TypingChallengeComponent extends Component {
       }
     }
 
-    const accuracy = totalCharacters > 0 ? (correctCharacters / totalCharacters) * 100 : 0;
+    const accuracy =
+      totalCharacters > 0 ? (correctCharacters / totalCharacters) * 100 : 0;
 
     // WPM calculation: (correct characters / 5) / (time in minutes)
     const timeInMinutes = timeElapsed / 60;
-    const wpm = timeInMinutes > 0 ? Math.round((correctCharacters / 5) / timeInMinutes) : 0;
+    const wpm =
+      timeInMinutes > 0 ? Math.round(correctCharacters / 5 / timeInMinutes) : 0;
 
     return {
       wpm,
@@ -167,53 +182,55 @@ export default class TypingChallengeComponent extends Component {
       timeElapsed: Math.round(timeElapsed * 10) / 10,
       totalCharacters,
       correctCharacters,
-      errors
+      errors,
     };
   }
 
   @action
   restart(): void {
-    this.currentSnippet = getRandomSnippet();
-    this.userInput = '';
-    this.isActive = false;
-    this.isCompleted = false;
-    this.startTime = null;
-    this.endTime = null;
-    this.currentCharIndex = 0;
-    this.stats = null;
+    // Navigate back to index route to get a new random snippet
+    this.router.transitionTo('index');
   }
 
   <template>
     <div class="typing-challenge">
       <div class="challenge-header">
         <h1 class="challenge-title">JavaScript Typing Challenge</h1>
-        <p class="challenge-description">Type the JavaScript code as fast and accurately as you can!</p>
+        <p class="challenge-description">Type the JavaScript code as fast and
+          accurately as you can!</p>
       </div>
 
       {{#unless this.isCompleted}}
         <div class="code-display">
           <div class="snippet-info">
-            <span class="snippet-label">{{this.currentSnippet.description}}</span>
+            <span
+              class="snippet-label"
+            >{{this.currentSnippet.description}}</span>
           </div>
 
           <div class="code-text">
             {{#each this.displayChars as |charObj|}}
-              <span class="char char--{{charObj.status}}">{{charObj.char}}</span>
+              <span
+                class="char char--{{charObj.status}}"
+              >{{charObj.char}}</span>
             {{/each}}
           </div>
         </div>
 
         {{#unless this.isActive}}
           <div class="typing-hint">
-            <p class="hint-text">✨ Start typing anywhere to begin the challenge! ✨</p>
-            <p class="hint-subtext">No need to click or focus - just start typing</p>
+            <p class="hint-text">✨ Start typing anywhere to begin the
+              challenge! ✨</p>
+            <p class="hint-subtext">No need to click or focus - just start
+              typing</p>
           </div>
         {{/unless}}
 
         {{#if this.isActive}}
           <div class="status-bar">
             <div class="progress-indicator">
-              Progress: {{this.currentCharIndex}}/{{this.targetCode.length}}
+              Progress:
+              {{this.currentCharIndex}}/{{this.targetCode.length}}
             </div>
           </div>
         {{/if}}
@@ -247,11 +264,7 @@ export default class TypingChallengeComponent extends Component {
             </div>
           {{/if}}
 
-          <button
-            class="restart-btn"
-            type="button"
-            {{on "click" this.restart}}
-          >
+          <button class="restart-btn" type="button" {{on "click" this.restart}}>
             Try Another Challenge
           </button>
         </div>
@@ -259,4 +272,3 @@ export default class TypingChallengeComponent extends Component {
     </div>
   </template>
 }
-
