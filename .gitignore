@@ -1,4 +1,6 @@
 # compiled output
+/dist/
+/declarations/
 /tmp/
 .log/
 
