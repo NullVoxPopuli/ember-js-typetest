@@ -186,7 +186,7 @@ export default class TypingChallengeComponent extends Component {
   <template>
     <div class="typing-challenge">
       <div class="challenge-header">
-        <h1 class="challenge-title">Synthwave Typing Challenge</h1>
+        <h1 class="challenge-title">JavaScript Typing Challenge</h1>
         <p class="challenge-description">Type the JavaScript code as fast and accurately as you can!</p>
       </div>
 
