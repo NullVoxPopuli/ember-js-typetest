@@ -116,6 +116,46 @@ export default class TypingChallengeComponent extends Component<Signature> {
       return;
     }
 
+    // Handle Tab key with smart spacing
+    if (event.key === 'Tab') {
+      event.preventDefault();
+
+      // Calculate spaces to add based on current line indentation
+      const lastNewlineIndex = this.userInput.lastIndexOf('\n');
+      const currentLine =
+        lastNewlineIndex === -1
+          ? this.userInput
+          : this.userInput.slice(lastNewlineIndex + 1);
+
+      // Count leading spaces in current line
+      const leadingSpaces = currentLine.match(/^ */)?.[0].length || 0;
+
+      // Add 2 spaces if current indentation is even, 1 space if odd (to make total even)
+      const spacesToAdd = leadingSpaces % 2 === 0 ? 2 : 1;
+      const spaces = ' '.repeat(spacesToAdd);
+
+      // Don't allow input beyond target length
+      if (this.userInput.length + spacesToAdd > this.targetCode.length) {
+        return;
+      }
+
+      // Start the timer on first character
+      if (!this.isActive && this.userInput.length === 0) {
+        this.isActive = true;
+        this.startTime = Date.now();
+      }
+
+      this.userInput = this.userInput + spaces;
+      this.currentCharIndex = this.userInput.length;
+
+      // Check if test is complete
+      if (this.isTestComplete) {
+        this.completeTest();
+      }
+
+      return;
+    }
+
     // Handle printable characters
     if (event.key.length === 1) {
       event.preventDefault();
