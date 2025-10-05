@@ -12,7 +12,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "vite build --outDir docs",
+    "build": "vite build --outDir docs; cp docs/index.html docs/404.html",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm format",
