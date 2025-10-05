@@ -244,6 +244,14 @@ body {
   border-radius: 2px;
 }
 
+/* Special handling for newline characters */
+.char--newline {
+  flex-basis: 100%;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 .char--correct {
   color: var(--neon-green);
   background: rgba(51, 255, 153, 0.15);

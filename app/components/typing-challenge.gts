@@ -21,6 +21,10 @@ interface TypingChallengeArgs {
   snippet: CodeSnippet;
 }
 
+function isNewline(char: string) {
+  return char === '\n';
+}
+
 export default class TypingChallengeComponent extends Component<TypingChallengeArgs> {
   @service declare router: RouterService;
 
@@ -210,9 +214,11 @@ export default class TypingChallengeComponent extends Component<TypingChallengeA
 
           <div class="code-text">
             {{#each this.displayChars as |charObj|}}
-              <span
-                class="char char--{{charObj.status}}"
-              >{{charObj.char}}</span>
+                {{#if (isNewline charObj.char)}}
+                <span class="char char--{{charObj.status}} char--newline">{{charObj.char}}</span>
+              {{else}}
+                <span class="char char--{{charObj.status}}">{{charObj.char}}</span>
+              {{/if}}
             {{/each}}
           </div>
         </div>
