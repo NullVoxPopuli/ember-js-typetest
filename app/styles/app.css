@@ -656,6 +656,99 @@ body {
   }
 }
 
+/* New Test Button */
+.new-test-section {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.new-test-btn {
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    var(--electric-blue),
+    var(--neon-cyan-bright)
+  );
+  border: 2px solid var(--neon-cyan-bright);
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  color: var(--bg-primary);
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-cyan-subtle);
+  position: relative;
+  overflow: hidden;
+  /* Enhanced contrast and accessibility */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  min-height: 44px; /* WCAG touch target size */
+  min-width: 180px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-test-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.4s ease;
+}
+
+.new-test-btn:hover,
+.new-test-btn:focus {
+  transform: translateY(-2px);
+  box-shadow:
+    var(--glow-cyan),
+    0 8px 20px rgba(0, 255, 255, 0.4);
+  filter: brightness(1.15);
+  /* High contrast focus indicator */
+  outline: 3px solid var(--neon-pink-bright);
+  outline-offset: 2px;
+  text-decoration: none;
+}
+
+.new-test-btn:hover::before {
+  left: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .new-test-btn::before {
+    transition: none;
+    display: none;
+  }
+  .new-test-btn:hover {
+    transform: none;
+  }
+}
+
+.new-test-btn:active {
+  transform: translateY(0);
+}
+
+/* High contrast mode support for new test button */
+@media (prefers-contrast: high) {
+  .new-test-btn {
+    border-width: 3px;
+    background: linear-gradient(135deg, #00ffff, #33ffff);
+    color: #000000;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .typing-challenge {

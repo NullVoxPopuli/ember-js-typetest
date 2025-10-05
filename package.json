@@ -79,6 +79,7 @@
     "edition": "octane"
   },
   "dependencies": {
+    "ember-primitives": "^0.40.0",
     "ember-strict-application-resolver": "^0.1.0"
   }
 }

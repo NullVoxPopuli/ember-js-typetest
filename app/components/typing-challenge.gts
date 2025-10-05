@@ -217,6 +217,12 @@ export default class TypingChallengeComponent extends Component<TypingChallengeA
           </div>
         </div>
 
+        <div class="new-test-section">
+          <a href="/" class="new-test-btn">
+            🎲 Pick New Random Test
+          </a>
+        </div>
+
         {{#unless this.isActive}}
           <div class="typing-hint">
             <p class="hint-text">✨ Start typing anywhere to begin the

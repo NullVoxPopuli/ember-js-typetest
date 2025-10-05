@@ -2,6 +2,7 @@
 /dist/
 /declarations/
 /tmp/
+.log/
 
 # dependencies
 /node_modules/
