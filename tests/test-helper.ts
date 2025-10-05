@@ -1,5 +1,5 @@
-import Application from 'vibe-monkeytype/app';
-import config from 'vibe-monkeytype/config/environment';
+import Application from 'ember-typetest/app';
+import config from 'ember-typetest/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

@@ -1,8 +1,8 @@
 {
-  "name": "vibe-monkeytype",
+  "name": "ember-typetest",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for vibe-monkeytype goes here",
+  "description": "Small description for ember-typetest goes here",
   "repository": "",
   "license": "MIT",
   "author": "",
